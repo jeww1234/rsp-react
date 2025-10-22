@@ -24,7 +24,13 @@ function App() {
   //승패에 따라 결과를 보여줌
   //승패결과에 따라 테두리 색 바뀜
 
-  const [userSelect, setUserSelect] = useState(null)
+  const defaultChoice = {
+  name: "Waiting...",
+  img: "https://i.namu.wiki/i/Oxg73MRzvQD9DSPoTjU4IFRVensknbLhJoziNhKQ5KCge_QuCZkfDQor6sn10ejQ0TA0pKKFta6uFcHZids62w.webp", // 또는 로딩 이미지
+};
+
+
+  const [userSelect, setUserSelect] = useState(defaultChoice)
 
   const play = (userChoice) =>{
     setUserSelect(choice[userChoice])
