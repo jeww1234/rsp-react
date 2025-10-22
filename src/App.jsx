@@ -17,6 +17,13 @@ const choice = {
   },
 };
 
+const computerChoice = () =>{
+  const keys = Object.keys(choice)
+  const randomkey = Math.floor(Math.random() *keys.length)
+  return choice[keys[randomkey]];
+}
+
+
 function App() {
   //박스2개(타이틀,사진,결과)
   //r,s, p 버튼 클릭하면 클리간 값이 박스에 보임
@@ -31,16 +38,19 @@ function App() {
 
 
   const [userSelect, setUserSelect] = useState(defaultChoice)
+  const [computerSelect, setComputerSelect] = useState(defaultChoice)
 
   const play = (userChoice) =>{
     setUserSelect(choice[userChoice])
+    const computerPick = computerChoice();
+    setComputerSelect(computerPick)
   }
 
   return (
     <div className="main">
       <div className="main-box">
         <Box title="You" item={userSelect}/>
-        {/* <Box title="Computer" /> */}
+        <Box title="Computer" item={computerSelect}/>
       </div>
 
       <div>
