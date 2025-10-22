@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Box from "./component/Box/Box";
+import { gameResult } from "./utils/judgement";
 
 const choice = {
   rock: {
@@ -17,12 +18,11 @@ const choice = {
   },
 };
 
-const computerChoice = () =>{
-  const keys = Object.keys(choice)
-  const randomkey = Math.floor(Math.random() *keys.length)
+const computerChoice = () => {
+  const keys = Object.keys(choice);
+  const randomkey = Math.floor(Math.random() * keys.length);
   return choice[keys[randomkey]];
-}
-
+};
 
 function App() {
   //박스2개(타이틀,사진,결과)
@@ -32,31 +32,42 @@ function App() {
   //승패결과에 따라 테두리 색 바뀜
 
   const defaultChoice = {
-  name: "Waiting...",
-  img: "https://i.namu.wiki/i/Oxg73MRzvQD9DSPoTjU4IFRVensknbLhJoziNhKQ5KCge_QuCZkfDQor6sn10ejQ0TA0pKKFta6uFcHZids62w.webp", // 또는 로딩 이미지
-};
+    name: "Waiting...",
+    img: "https://i.namu.wiki/i/Oxg73MRzvQD9DSPoTjU4IFRVensknbLhJoziNhKQ5KCge_QuCZkfDQor6sn10ejQ0TA0pKKFta6uFcHZids62w.webp", // 또는 로딩 이미지
+  };
 
+  const [userSelect, setUserSelect] = useState(defaultChoice);
+  const [computerSelect, setComputerSelect] = useState(defaultChoice);
+  const [result, setResult] = useState("Draw");
 
-  const [userSelect, setUserSelect] = useState(defaultChoice)
-  const [computerSelect, setComputerSelect] = useState(defaultChoice)
-
-  const play = (userChoice) =>{
-    setUserSelect(choice[userChoice])
+  const play = (userChoice) => {
+    const userPick = choice[userChoice];
     const computerPick = computerChoice();
-    setComputerSelect(computerPick)
-  }
+
+    setUserSelect(choice[userChoice]);
+    setComputerSelect(computerPick);
+
+    const Result = gameResult(userPick.name, computerPick.name);
+    setResult(Result);
+  };
 
   return (
     <div className="main">
       <div className="main-box">
-        <Box title="You" item={userSelect}/>
-        <Box title="Computer" item={computerSelect}/>
+        <Box title="You" item={userSelect} result={result} />
+        <Box
+          title="Computer"
+          item={computerSelect}
+          result={
+            result === "Win" ? "Lose" : result === "Lose" ? "Win" : "Draw"
+          }
+        />
       </div>
 
       <div>
-        <button onClick={()=>play("rock")}>Rock</button>
-        <button onClick={()=>play("scissors")}>Scissors</button>
-        <button onClick={()=>play("paper")}>Paper</button>
+        <button onClick={() => play("rock")}>Rock</button>
+        <button onClick={() => play("scissors")}>Scissors</button>
+        <button onClick={() => play("paper")}>Paper</button>
       </div>
     </div>
   );
