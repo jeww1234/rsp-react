@@ -1,29 +1,8 @@
 import { useState } from "react";
 import "./App.css";
 import Box from "./component/Box/Box";
-import { gameResult } from "./utils/judgement";
 import Button from "./component/Button/Button";
-
-const choice = {
-  rock: {
-    name: "Rock",
-    img: "https://img.seoul.co.kr/img/upload/2020/04/01/SSI_20200401150529_O2.png",
-  },
-  scissors: {
-    name: "Scissors",
-    img: "https://s.alicdn.com/@sc04/kf/U44cc6de541df4a8d89ec07eb4c5e329bZ.jpg",
-  },
-  paper: {
-    name: "Paper",
-    img: "https://indigo.co.kr/web/product/big/201901/723b89db0dc066aec54f9d1b1de528c5.jpg",
-  },
-};
-
-const computerChoice = () => {
-  const keys = Object.keys(choice);
-  const randomkey = Math.floor(Math.random() * keys.length);
-  return choice[keys[randomkey]];
-};
+import { playGame } from "./utils/play";
 
 function App() {
   //박스2개(타이틀,사진,결과)
@@ -41,15 +20,11 @@ function App() {
   const [computerSelect, setComputerSelect] = useState(defaultChoice);
   const [result, setResult] = useState("Draw");
 
-  const play = (userChoice) => {
-    const userPick = choice[userChoice];
-    const computerPick = computerChoice();
-
-    setUserSelect(choice[userChoice]);
+  const handlePlay = (userChoice) => {
+    const { userPick, computerPick, result } = playGame(userChoice);
+    setUserSelect(userPick);
     setComputerSelect(computerPick);
-
-    const Result = gameResult(userPick.name, computerPick.name);
-    setResult(Result);
+    setResult(result);
   };
 
   return (
@@ -65,9 +40,9 @@ function App() {
         />
       </div>
       <div>
-        <Button label="Rock" onClick={() => play("rock")} />
-        <Button label="Scissors" onClick={() => play("scissors")} />
-        <Button label="Paper" onClick={() => play("paper")} />
+        <Button label="Rock" onClick={() => handlePlay("rock")} />
+        <Button label="Scissors" onClick={() => handlePlay("scissors")} />
+        <Button label="Paper" onClick={() => handlePlay("paper")} />
       </div>
     </div>
   );
