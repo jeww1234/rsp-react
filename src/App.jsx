@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import Box from "./component/Box/Box";
 import { gameResult } from "./utils/judgement";
+import Button from "./component/Button/Button";
 
 const choice = {
   rock: {
@@ -63,11 +64,10 @@ function App() {
           }
         />
       </div>
-
       <div>
-        <button onClick={() => play("rock")}>Rock</button>
-        <button onClick={() => play("scissors")}>Scissors</button>
-        <button onClick={() => play("paper")}>Paper</button>
+        <Button label="Rock" onClick={() => play("rock")} />
+        <Button label="Scissors" onClick={() => play("scissors")} />
+        <Button label="Paper" onClick={() => play("paper")} />
       </div>
     </div>
   );
