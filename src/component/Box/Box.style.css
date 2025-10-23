@@ -22,3 +22,20 @@
     border: 5px solid grey;
     color: gray;
 }
+
+@media screen and (max-width: 768px) {
+  .box{
+    width: 250px;
+    border: 1px solid black;
+    text-align: center;
+    margin: 1rem;
+}
+.box-image{
+    width: 150px;
+    height: 150px;
+    border: none;
+}
+.box-title{
+    font-size: 2rem;
+}
+}

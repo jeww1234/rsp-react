@@ -4,7 +4,7 @@ import "./Result.style.css";
 const Result = (props) => {
     
   return (
-    <div>
+    <div className="box-result">
       <h2>{props.result}</h2>
     </div>
   );
