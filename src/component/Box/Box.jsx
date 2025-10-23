@@ -3,8 +3,9 @@ import "./Box.style.css";
 import Result from "../Result/Result";
 
 const Box = (props) => {
+  console.log(props.result)
   return (
-    <div className="box">
+    <div className={`box ${props.result === "Draw" ? "draw" : props.result === "Win" ? "win" : "lose"}`}>
       <h1>{props.title}</h1>
       {props.item && (
         <img className="box-image" src={props.item.img} alt="이미지" />
